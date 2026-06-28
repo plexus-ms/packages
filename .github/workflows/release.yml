@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency: release
+
+permissions:
+  contents: write       # push the version PR / tags
+  pull-requests: write  # open the "version packages" PR
+  id-token: write       # npm build provenance (drop this line if the repo is private)
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2   # installs node/pnpm from mise.toml — single source of truth
+      - run: pnpm install --frozen-lockfile
+      # npm auth from a trusted (non-committed) source so pnpm uses it for publish.
+      - run: pnpm config set "//registry.npmjs.org/:_authToken" "$NPM_TOKEN"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # On a push with pending changesets -> opens/updates a "version packages" PR.
+      # On a push where that PR was merged (no changesets left) -> publishes.
+      # The build runs via each package's `prepack` hook during publish.
+      - uses: changesets/action@v1
+        with:
+          version: changeset version
+          publish: changeset publish
+          commit: "chore: version packages"
+          title: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"   # signed provenance; needs id-token: write + a public repo
