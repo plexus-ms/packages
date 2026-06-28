@@ -16,15 +16,3 @@ run = "biome format --write ."
 [tasks.lint]
 description = "Lint the repository with Biome"
 run = "biome check ."
-
-[tasks.changeset]
-description = "Record a changeset describing pending changes (interactive)"
-run = "changeset"
-
-[tasks.version]
-description = "Apply pending changesets: bump versions + write changelogs"
-run = "changeset version"
-
-[tasks.publish]
-description = "Build (via prepack) and publish changed packages to the registry"
-run = "changeset publish"
