@@ -1,6 +1,6 @@
 {
-  "name": "@plexus-ms/stdlib",
-  "version": "0.0.0",
+  "name": "@plexus-ms/std",
+  "version": "0.1.0",
   "type": "module",
   "exports": {
     ".": {
@@ -12,10 +12,20 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plexus-ms/library.git",
+    "directory": "packages/std"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "test": "node --test"
+    "test": "node --test",
+    "prepack": "tsc"
   },
   "dependencies": {
     "clsx": "^2.1.1",

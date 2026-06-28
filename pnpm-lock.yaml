@@ -12,7 +12,9 @@ catalogs:
 
 importers:
 
-  packages/stdlib:
+  .: {}
+
+  packages/std:
     dependencies:
       clsx:
         specifier: ^2.1.1
