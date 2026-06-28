@@ -1,0 +1,17 @@
+monorepo_root = true
+
+[monorepo]
+config_roots = ["packages/*"]
+
+[tools]
+biome = "2"
+node = "24"
+pnpm = "11"
+
+[tasks.format]
+description = "Format the repository with Biome"
+run = "biome format --write ."
+
+[tasks.lint]
+description = "Lint the repository with Biome"
+run = "biome check ."
