@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v4   # installs node/pnpm/biome from mise.toml
+      - run: pnpm install --frozen-lockfile
+      - run: mise run lint              # biome check (whole repo)
+      - run: mise run //...:typecheck   # tsc --noEmit in every package
+      - run: mise run //...:test        # node --test in every package
+      - run: mise run //...:build       # tsc -> dist in every package
+
+  changeset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0   # `changeset status` diffs the PR against origin/main
+      - uses: jdx/mise-action@v4   # provides the `changeset` binary (a mise tool)
+      # Fails if a *publishable* package changed without a changeset.
+      # If the change needs no release (tests, docs, refactor), record that with:
+      #   changeset add --empty
+      - run: changeset status --since=origin/main
