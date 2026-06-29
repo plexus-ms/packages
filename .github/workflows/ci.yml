@@ -16,20 +16,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: jdx/mise-action@v4   # installs node/pnpm/biome from mise.toml
+      - uses: jdx/mise-action@v4
       - run: pnpm install --frozen-lockfile
-      - run: mise run lint              # biome check (whole repo)
-      - run: mise run //...:typecheck   # tsc --noEmit in every package
-      - run: mise run //...:test        # node --test in every package
-      - run: mise run //...:build       # tsc -> dist in every package
+      - run: mise //:check
+      - run: mise //:verify
+      - run: mise //...:build
 
   changeset:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
         with:
-          fetch-depth: 0   # `changeset status` diffs the PR against origin/main
-      - uses: jdx/mise-action@v4   # provides the `changeset` binary (a mise tool)
+          fetch-depth: 0
+      - uses: jdx/mise-action@v4
       # Fails if a *publishable* package changed without a changeset.
       # If the change needs no release (tests, docs, refactor), record that with:
       #   changeset add --empty
