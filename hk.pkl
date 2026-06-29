@@ -1,0 +1,22 @@
+amends "package://github.com/jdx/hk/releases/download/v1.48.0/hk@1.48.0#/Config.pkl"
+
+hooks {
+  ["pre-commit"] {
+    fix = true
+    stash = true
+    steps {
+      ["check"] {
+        glob = List("**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.css", "**/*.json")
+        check = "mise //:check {{ files }}"
+        fix = "mise //:check --write {{ files }}"
+      }
+    }
+  }
+  ["pre-push"] {
+    steps {
+      ["verify"] {
+        check = "mise //:verify"
+      }
+    }
+  }
+}
