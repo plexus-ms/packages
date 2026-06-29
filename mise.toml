@@ -11,7 +11,7 @@ node = "24"
 pnpm = "11"
 
 [hooks]
-postinstall = "hk install"
+postinstall = "hk install --mise"
 
 [tasks.check]
 description = "Lint and format with Biome"
