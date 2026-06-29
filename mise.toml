@@ -5,14 +5,22 @@ config_roots = ["packages/*"]
 
 [tools]
 biome = "2"
+hk = "1"
 node = "24"
 "npm:@changesets/cli" = "2"
 pnpm = "11"
 
-[tasks.format]
-description = "Format the repository with Biome"
-run = "biome format --write ."
+[hooks]
+postinstall = "hk install"
 
-[tasks.lint]
-description = "Lint the repository with Biome"
-run = "biome check ."
+[tasks.check]
+description = "Lint and format with Biome"
+usage = '''
+flag "--write" help="Apply safe fixes and formatting in place"
+arg "<paths>" var=#true default="." help="Files or directories to check (defaults to the whole repo)"
+'''
+run = "biome check ${usage_write:+--write} --no-errors-on-unmatched $usage_paths"
+
+[tasks.verify]
+description = "Typecheck and test every package"
+depends = ["//...:typecheck", "//...:test"]
