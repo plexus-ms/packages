@@ -2,7 +2,7 @@
 #
 # Plexus deploy verb — PLEXUS.md §5. A stateless procedure, not a system:
 #
-#   ssh → docker compose pull → mise run migrate → docker compose up -d
+#   ssh → docker compose pull → mise migrate → docker compose up -d
 #       → poll /healthz → on failure: re-up the previous image, exit non-zero
 #
 # State lives in git (compose.yml + the app's mise.toml, placed on the host by the
@@ -59,8 +59,10 @@ healthy() {
 # Pull → migrate (idempotent; a no-op for stateless apps) → up.
 echo "IMAGE=$IMAGE" > .env
 IMAGE="$IMAGE" docker compose pull web
+# Bare `mise migrate` (not `:migrate`): the app dir on the host holds a
+# standalone mise.toml, and monorepo path syntax requires a monorepo root.
 mise trust . >/dev/null 2>&1 || true
-mise run migrate
+mise migrate
 IMAGE="$IMAGE" docker compose up -d web
 
 if healthy; then
