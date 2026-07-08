@@ -13,7 +13,7 @@ pnpm = "11"
 [hooks]
 postinstall = "hk install --mise"
 
-[tasks.check]
+[tasks.biome]
 description = "Lint and format with Biome"
 usage = '''
 flag "--write" help="Apply safe fixes and formatting in place"
