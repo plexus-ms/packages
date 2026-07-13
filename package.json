@@ -1,7 +1,10 @@
 {
   "name": "packages",
   "private": true,
+  "packageManager": "pnpm@11.9.0",
   "devDependencies": {
-    "@plexus-ms/config": "workspace:*"
+    "@changesets/cli": "^2",
+    "@plexus-ms/config": "workspace:*",
+    "turbo": "^2"
   }
 }
