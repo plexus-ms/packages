@@ -17,10 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: jdx/mise-action@v4
-      - run: pnpm install --frozen-lockfile
-      - run: mise :biome
-      - run: mise :verify
-      - run: mise //...:build
+      - run: mise verify
 
   changeset:
     # The Version Packages PR is *built by* `changeset version`, which consumes
@@ -33,7 +30,8 @@ jobs:
         with:
           fetch-depth: 0
       - uses: jdx/mise-action@v4
+      - run: pnpm install --frozen-lockfile
       # Fails if a *publishable* package changed without a changeset.
       # If the change needs no release (tests, docs, refactor), record that with:
       #   changeset add --empty
-      - run: changeset status --since=origin/main
+      - run: pnpm exec changeset status --since=origin/main

@@ -16,15 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: jdx/mise-action@v4   # installs node/pnpm from mise.toml — single source of truth
+      - uses: jdx/mise-action@v4   # node from .node-version; pnpm via corepack (packageManager field)
       - run: pnpm install --frozen-lockfile
       # On a push with pending changesets -> opens/updates a "version packages" PR.
       # On a push where that PR was merged (no changesets left) -> publishes.
       # The build runs via each package's `prepack` hook during publish.
       - uses: changesets/action@v1
         with:
-          version: changeset version
-          publish: changeset publish
+          version: pnpm exec changeset version
+          publish: pnpm exec changeset publish
           commit: "chore: version packages"
           title: "Version Packages"
         env:

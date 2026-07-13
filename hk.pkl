@@ -5,17 +5,20 @@ hooks {
     fix = true
     stash = true
     steps {
-      ["biome"] {
+      ["lint"] {
         glob = List("**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.css", "**/*.json")
-        check = "mise :biome {{ files }}"
-        fix = "mise :biome --write {{ files }}"
+        check = "mise :lint {{ files }}"
+        fix = "mise :lint --write {{ files }}"
       }
     }
   }
   ["pre-push"] {
     steps {
-      ["verify"] {
-        check = "mise :verify"
+      ["check"] {
+        check = "mise :check"
+      }
+      ["test"] {
+        check = "mise :test"
       }
     }
   }

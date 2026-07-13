@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --noEmit",
+    "check": "tsc --noEmit",
     "test": "node --test",
     "prepack": "tsc"
   },
