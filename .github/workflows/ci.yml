@@ -23,6 +23,10 @@ jobs:
       - run: mise //...:build
 
   changeset:
+    # The Version Packages PR is *built by* `changeset version`, which consumes
+    # the changeset files it releases — so on that branch "changed packages,
+    # no changesets" is the expected state, not a missing changeset.
+    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
