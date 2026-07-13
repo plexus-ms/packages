@@ -1,7 +1,7 @@
 {
-  "name": "@plexus-ms/biome",
+  "name": "@plexus-ms/config",
   "version": "0.0.0",
-  "description": "Shared Biome configuration for Plexus repos — extend it in one line (§ 9 PLX).",
+  "description": "Shared tool configurations for Plexus repos — each an extend-in-one-line subpath export (§ 9 PLX).",
   "license": "GPL-3.0-or-later",
   "files": [
     "biome.json"
@@ -12,7 +12,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/plexus-ms/packages.git",
-    "directory": "packages/biome"
+    "directory": "packages/config"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

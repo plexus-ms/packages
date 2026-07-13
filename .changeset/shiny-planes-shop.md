@@ -1,5 +1,5 @@
 ---
-"@plexus-ms/biome": minor
+"@plexus-ms/config": minor
 ---
 
-Initial release: the shared Biome configuration, consumable as a one-line `"extends": ["@plexus-ms/biome/biome"]`.
+Initial release: shared tool configurations as subpath exports, starting with Biome — `"extends": ["@plexus-ms/config/biome"]`.

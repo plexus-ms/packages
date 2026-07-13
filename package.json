@@ -2,6 +2,6 @@
   "name": "packages",
   "private": true,
   "devDependencies": {
-    "@plexus-ms/biome": "workspace:*"
+    "@plexus-ms/config": "workspace:*"
   }
 }

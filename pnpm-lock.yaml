@@ -14,11 +14,11 @@ importers:
 
   .:
     devDependencies:
-      '@plexus-ms/biome':
+      '@plexus-ms/config':
         specifier: workspace:*
-        version: link:packages/biome
+        version: link:packages/config
 
-  packages/biome: {}
+  packages/config: {}
 
   packages/std:
     dependencies:
