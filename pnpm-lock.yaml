@@ -12,7 +12,13 @@ catalogs:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      '@plexus-ms/config':
+        specifier: workspace:*
+        version: link:packages/config
+
+  packages/config: {}
 
   packages/std:
     dependencies:
