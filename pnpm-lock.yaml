@@ -12,7 +12,13 @@ catalogs:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      '@plexus-ms/biome':
+        specifier: workspace:*
+        version: link:packages/biome
+
+  packages/biome: {}
 
   packages/std:
     dependencies:
